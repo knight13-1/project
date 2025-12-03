@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      args:
+        PORT: 8000
+        CORS_ORIGIN: "http://localhost:5173"
+        MONGODB_URI: "mongodb://127.0.0.1:27017/skillswap"
+        CLOUDINARY_CLOUD_NAME: "dcjd0phxp"
+        CLOUDINARY_API_KEY: "498328374228347"
+        CLOUDINARY_API_SECRET: "I0VIfXckXKkw-bZSSm5CIh5Izb4"
+        GOOGLE_CLIENT_ID: "964186515828-0m702ha3hr7sas3511qtom8c9e0mns3f.apps.googleusercontent.com"
+        GOOGLE_CLIENT_SECRET: "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"
+        GOOGLE_CALLBACK_URL: "http://localhost:5000/auth/google/callback"
+        JWT_SECRET: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      args:
+        VITE_LOCALHOST: "http://localhost:8000"
+    ports:
+      - "5173:5173"
